@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIJOU — How to Pay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PAGE LAYOUT ── */
+    .pay-hero {
+      background: linear-gradient(135deg, #1C1C1C 0%, #2d1a1d 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+    .pay-hero-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #C97B84;
+      margin-bottom: 0.75rem;
+    }
+    .pay-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .pay-hero-sub {
+      font-size: 0.9rem;
+      color: #aaa;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .pay-page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── DEPOSIT BANNER ── */
+    .deposit-banner {
+      background: linear-gradient(135deg, #C97B84, #b56870);
+      color: #fff;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 24px rgba(201,123,132,0.25);
+    }
+    .deposit-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .deposit-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .deposit-text p { font-size: 0.85rem; opacity: 0.9; line-height: 1.6; }
+
+    /* ── MPESA CARD ── */
+    .mpesa-card {
+      background: #fff;
+      border: 1.5px solid #E8E2D8;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .mpesa-logo { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .mpesa-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #5A5A5A;
+      margin-bottom: 0.5rem;
+    }
+    .mpesa-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1C1C1C;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.25rem;
+    }
+    .mpesa-name { font-size: 0.85rem; color: #5A5A5A; margin-bottom: 1.25rem; }
+    .copy-btn {
+      padding: 10px 28px;
+      background: #1C1C1C;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: #C97B84; }
+
+    /* ── ORDER SUMMARY ── */
+    .order-summary-card {
+      background: #fff;
+      border: 1.5px solid #E8E2D8;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .order-summary-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: #1C1C1C;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      padding: 6px 0;
+      border-bottom: 1px solid #f0ebe8;
+      color: #5A5A5A;
+    }
+    .order-item:last-child { border: none; }
+    .empty-order { font-size: 0.84rem; color: #aaa; text-align: center; padding: 1rem 0; }
+    .order-summary-total {
+      margin-top: 1rem;
+      background: #FAF7F2;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+    }
+    .order-summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 4px 0;
+      color: #5A5A5A;
+    }
+    .order-summary-row strong { color: #C97B84; }
+    .order-summary-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── AI ASSISTANT ── */
+    .ai-card {
+      background: #1C1C1C;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .ai-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .ai-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #C97B84, #b56870);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .ai-name { font-size: 0.9rem; font-weight: 600; }
+    .ai-sub  { font-size: 0.72rem; color: #888; }
+
+    /* chat messages */
+    .chat-messages {
+      background: #111;
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 160px;
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chat-msg {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .chat-bubble {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.83rem;
+      line-height: 1.55;
+    }
+    .chat-msg.bot .chat-bubble  { background: #2a2a2a; color: #eee; border-bottom-left-radius: 4px; }
+    .chat-msg.user .chat-bubble { background: #C97B84; color: #fff; border-bottom-right-radius: 4px; }
+    .chat-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #333;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; flex-shrink: 0;
+    }
+    .chat-typing {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px;
+      background: #2a2a2a;
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+    .chat-typing span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #888;
+      animation: bounce 1.2s infinite;
+    }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%,60%,100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* quick prompts */
+    .quick-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .qp-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #444;
+      background: none;
+      color: #ccc;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      transition: all 0.2s;
+    }
+    .qp-btn:hover { border-color: #C97B84; color: #C97B84; }
+
+    /* chat input */
+    .chat-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 24px;
+      border: 1.5px solid #333;
+      background: #111;
+      color: #fff;
+      font-size: 0.85rem;
+      font-family: 'Jost', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input::placeholder { color: #555; }
+    .chat-input:focus { border-color: #C97B84; }
+    .chat-send {
+      padding: 10px 20px;
+      background: #C97B84;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .chat-send:hover { background: #b56870; }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── STEPS ── */
+    .steps-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      color: #1C1C1C;
+    }
+    .steps { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+    .step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1.5px solid #E8E2D8;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .step:hover { border-color: #C97B84; box-shadow: 0 4px 20px rgba(201,123,132,0.1); }
+    .step-num {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #1C1C1C;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+    }
+    .step-body h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; color: #1C1C1C; }
+    .step-body p  { font-size: 0.84rem; color: #5A5A5A; line-height: 1.65; }
+    .highlight {
+      display: inline-block;
+      background: #FAF7F2;
+      border: 1.5px solid #E8E2D8;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1C1C1C;
+      letter-spacing: 0.08em;
+      margin-top: 0.5rem;
+    }
+    .note { font-size: 0.75rem; color: #C97B84; margin-top: 0.4rem; }
+
+    /* ── CALCULATOR ── */
+    .calc-card {
+      background: #FAF7F2;
+      border: 1.5px solid #E8E2D8;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .calc-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; margin-bottom: 1rem;
+    }
+    .calc-row { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
+    .calc-input-group { flex: 1; min-width: 160px; }
+    .calc-input-group label {
+      display: block;
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #5A5A5A; margin-bottom: 0.4rem;
+    }
+    .calc-input {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #E8E2D8; border-radius: 10px;
+      font-size: 1rem; font-family: 'Jost', sans-serif;
+      background: #fff; outline: none;
+    }
+    .calc-input:focus { border-color: #C97B84; }
+    .calc-btn {
+      padding: 11px 24px;
+      background: #C97B84; color: #fff;
+      border: none; border-radius: 24px;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+      font-family: 'Jost', sans-serif;
+      transition: background 0.2s;
+    }
+    .calc-btn:hover { background: #b56870; }
+    .calc-result {
+      margin-top: 1.25rem; display: none;
+      background: #fff; border-radius: 10px;
+      padding: 1rem 1.25rem; border: 1.5px solid #E8E2D8;
+    }
+    .calc-result.show { display: block; }
+    .calc-result-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.85rem; padding: 5px 0;
+      color: #5A5A5A; border-bottom: 1px solid #f0ebe8;
+    }
+    .calc-result-row:last-child { border: none; font-weight: 700; color: #1C1C1C; font-size: 0.95rem; }
+    .calc-result-row span:last-child { color: #C97B84; }
+
+    /* ── FAQ ── */
+    .faq-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400; margin-bottom: 1.25rem;
+    }
+    .faq { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .faq-item {
+      background: #fff; border: 1.5px solid #E8E2D8;
+      border-radius: 12px; overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; background: none; border: none;
+      padding: 1rem 1.25rem; text-align: left;
+      font-size: 0.88rem; font-weight: 600; color: #1C1C1C;
+      cursor: pointer; display: flex;
+      justify-content: space-between; align-items: center;
+      gap: 1rem; font-family: 'Jost', sans-serif;
+    }
+    .faq-q .arrow { transition: transform 0.25s; font-size: 0.75rem; color: #C97B84; }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; font-size: 0.84rem; color: #5A5A5A; line-height: 1.7; }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a-inner { padding: 0 1.25rem 1rem; }
+
+    /* ── CTA ── */
+    .pay-cta {
+      text-align: center; background: #1C1C1C;
+      border-radius: 20px; padding: 2.5rem 2rem; color: #fff;
+    }
+    .pay-cta h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; }
+    .pay-cta p  { font-size: 0.85rem; color: #aaa; margin-bottom: 1.5rem; }
+    .wa-cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 14px 32px; background: #25d366; color: #fff;
+      border: none; border-radius: 28px;
+      font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; cursor: pointer; transition: background 0.2s;
+    }
+    .wa-cta-btn:hover { background: #1ebe5a; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">BIJ<span>◆</span>U</a>
+  <ul class="nav-links">
+    <li><a href="index.html#products">Shop</a></li>
+    <li><a href="pay.html" style="color:var(--rose)">How to Pay</a></li>
+    <li><a href="index.html#how">How to Order</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="index.html" style="font-size:0.8rem;color:var(--mid);text-decoration:none">← Back to Shop</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="pay-hero">
+  <p class="pay-hero-tag">Secure & Simple</p>
+  <h1 class="pay-hero-title">How to Pay</h1>
+  <p class="pay-hero-sub">We accept M-Pesa payments. Fast, safe and easy — follow the steps below.</p>
+</div>
+
+<div class="pay-page">
+
+  <!-- DEPOSIT BANNER -->
+  <div class="deposit-banner">
+    <div class="deposit-icon">💳</div>
+    <div class="deposit-text">
+      <h3>75% Deposit · 25% on Delivery</h3>
+      <p>Pay 75% of your order total upfront via M-Pesa to confirm your order.
+         The remaining 25% is paid when your order arrives at your door.</p>
+    </div>
+  </div>
+
+  <!-- MPESA CARD -->
+  <div class="mpesa-card">
+    <div class="mpesa-logo">📱</div>
+    <div class="mpesa-label">Send M-Pesa to</div>
+    <div class="mpesa-number" id="mpesaNumber">0740 772 900</div>
+    <div class="mpesa-name">SHAWN ADUNGO</div>
+    <button class="copy-btn" onclick="copyNumber()">Copy Number</button>
+  </div>
+
+  <!-- ORDER SUMMARY (auto-filled from cart) -->
+  <div class="order-summary-card">
+    <h3>🛒 Your Order Summary</h3>
+    <div id="orderSummaryBody"></div>
+    <div class="order-summary-total" id="orderTotalSection" style="display:none">
+      <div class="order-summary-row"><span>Order Total</span><strong id="orderTotalDisplay">KSh 0</strong></div>
+      <div class="order-summary-row"><span>75% Deposit (pay now)</span><strong id="orderDepositDisplay">KSh 0</strong></div>
+      <div class="order-summary-row"><span>25% on Delivery</span><strong id="orderBalanceDisplay">KSh 0</strong></div>
+    </div>
+    <div class="order-summary-actions" id="orderActions" style="display:none;margin-top:1rem">
+      <button class="calc-btn" onclick="sendOrderWhatsApp()">📲 Send Order via WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- AI ASSISTANT -->
+  <div class="ai-card">
+    <div class="ai-card-header">
+      <div class="ai-avatar">✨</div>
+      <div>
+        <div class="ai-name">BIJOU Assistant</div>
+        <div class="ai-sub">Ask me anything about payment, delivery or orders</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="chat-avatar">✨</div>
+        <div class="chat-bubble">Hi! 👋 I'm here to help with any questions about ordering or paying. What would you like to know?</div>
+      </div>
+    </div>
+
+    <div class="quick-prompts">
+      <button class="qp-btn" onclick="quickAsk('How much is the deposit?')">💰 Deposit amount</button>
+      <button class="qp-btn" onclick="quickAsk('How long does delivery take?')">🚚 Delivery time</button>
+      <button class="qp-btn" onclick="quickAsk('Is it safe to pay before receiving?')">🔒 Is it safe?</button>
+      <button class="qp-btn" onclick="quickAsk('Can I pay in full upfront?')">✅ Pay in full</button>
+      <button class="qp-btn" onclick="quickAsk('What if an item is out of stock?')">📦 Out of stock</button>
+      <button class="qp-btn" onclick="quickAsk('How do I send M-Pesa?')">📱 M-Pesa steps</button>
+    </div>
+
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" placeholder="Type your question..."
+        onkeydown="if(event.key==='Enter') sendChat()" />
+      <button class="chat-send" id="sendBtn" onclick="sendChat()">Send</button>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <h2 class="steps-title">Step-by-Step Guide</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Add items to your cart & place order</h4>
+        <p>Browse the shop, add your favourite products to cart, then tap <strong>Checkout via WhatsApp</strong>. Your order list is sent to us automatically.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>We confirm availability & your total</h4>
+        <p>We'll reply on WhatsApp within minutes to confirm your items are in stock and give you the exact amount to pay.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Send 75% deposit via M-Pesa</h4>
+        <p>Go to <strong>M-Pesa → Send Money</strong> and send the deposit to:</p>
+        <div class="highlight">0740 772 900</div>
+        <p class="note">Use your name as the reference so we can match your payment.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Send us your M-Pesa confirmation SMS</h4>
+        <p>Forward the M-Pesa confirmation message to us on WhatsApp so we can verify and start processing your order.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>We dispatch your order 🎉</h4>
+        <p>Once payment is confirmed we pack and dispatch your order. We'll send tracking updates on WhatsApp. Pay the remaining <strong>25% on delivery</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPOSIT CALCULATOR -->
+  <div class="calc-card">
+    <h3>💡 Deposit Calculator</h3>
+    <div class="calc-row">
+      <div class="calc-input-group">
+        <label>Your Order Total (KSh)</label>
+        <input class="calc-input" type="number" id="calcInput" placeholder="e.g. 8500" min="0" />
+      </div>
+      <button class="calc-btn" onclick="calcDeposit()">Calculate</button>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <div class="calc-result-row"><span>Order Total</span><span id="rTotal">—</span></div>
+      <div class="calc-result-row"><span>75% Deposit (pay now)</span><span id="rDeposit">—</span></div>
+      <div class="calc-result-row"><span>25% on Delivery (pay later)</span><span id="rBalance">—</span></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is it safe to send money before receiving my order? <span class="arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes! We have served hundreds of happy customers across Kenya. Your deposit is protected — we only ask for 75% upfront so you retain 25% until your order arrives safely.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What if an item is out of stock after I pay? <span class="arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">We always confirm availability before you pay. If something goes out of stock we will offer you a full refund or a replacement — your choice.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does delivery take? <span class="arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Nairobi: about 2 weeks. Other counties: about 3 weeks via courier. We'll keep you updated on WhatsApp every step of the way.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I pay in full upfront? <span class="arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely! You're welcome to pay 100% upfront. Just let us know on WhatsApp and we'll send you the exact total.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What payment methods do you accept? <span class="arrow">▼</span></button>
+      <div class="faq-a"><div class="faq-a-inner">We currently accept M-Pesa (Send Money). More payment options coming soon!</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="pay-cta">
+    <h3>Ready to Order?</h3>
+    <p>Chat with us on WhatsApp and we'll guide you through the whole process.</p>
+    <a class="wa-cta-btn"
+       href="https://wa.me/254740772900?text=Hi%20BIJOU!%20I%20want%20to%20place%20an%20order."
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Chat on WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── STORE INFO (update here) ── */
+const STORE = {
+  mpesa : '0740772900',
+  waNum : '254740772900',
+  name  : 'SHAWN ADUNGO',
+  deposit: 0.75,
+};
+
+/* ── LOAD CART FROM LOCALSTORAGE ── */
+function loadCart() {
+  const cart = JSON.parse(localStorage.getItem('bijouCart') || '[]');
+  const body = document.getElementById('orderSummaryBody');
+  const totalSection = document.getElementById('orderTotalSection');
+  const actions = document.getElementById('orderActions');
+
+  if (!cart.length) {
+    body.innerHTML = '<p class="empty-order">Your cart is empty — <a href="index.html" style="color:#C97B84">go shop!</a></p>';
+    totalSection.style.display = 'none';
+    actions.style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+  body.innerHTML = cart.map(item => {
+    const line = item.price * item.qty;
+    total += line;
+    return `<div class="order-item">
+      <span><strong>${item.name}</strong> ×${item.qty}</span>
+      <span>KSh ${line.toLocaleString()}</span>
+    </div>`;
+  }).join('');
+
+  const deposit = Math.ceil(total * STORE.deposit);
+  const balance = total - deposit;
+
+  document.getElementById('orderTotalDisplay').textContent   = 'KSh ' + total.toLocaleString();
+  document.getElementById('orderDepositDisplay').textContent = 'KSh ' + deposit.toLocaleString();
+  document.getElementById('orderBalanceDisplay').textContent = 'KSh ' + balance.toLocaleString();
+  totalSection.style.display = 'block';
+  actions.style.display = 'flex';
+
+  /* pre-fill calculator */
+  document.getElementById('calcInput').value = total;
+  calcDeposit();
+}
+
+/* ── COPY NUMBER ── */
+function copyNumber() {
+  navigator.clipboard.writeText(STORE.mpesa).then(() => showToast('Number copied! ✓'));
+}
+
+/* ── SEND ORDER TO WHATSAPP ── */
+function sendOrderWhatsApp() {
+  const cart = JSON.parse(localStorage.getItem('bijouCart') || '[]');
+  if (!cart.length) { showToast('Your cart is empty'); return; }
+  const total   = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const deposit = Math.ceil(total * STORE.deposit);
+  const balance = total - deposit;
+  const lines   = cart.map(i => `• ${i.name} ×${i.qty} = KSh ${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const msg = `Hi BIJOU! I'd like to place an order 🛍️\n\n${lines}\n\n*Total: KSh ${total.toLocaleString()}*\n*Deposit (75%): KSh ${deposit.toLocaleString()}*\n*Balance on delivery: KSh ${balance.toLocaleString()}*\n\nPlease confirm availability. Thank you!`;
+  window.open(`https://wa.me/${STORE.waNum}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ── DEPOSIT CALCULATOR ── */
+function calcDeposit() {
+  const total = parseFloat(document.getElementById('calcInput').value);
+  if (!total || total <= 0) { showToast('Enter a valid amount'); return; }
+  const deposit = Math.ceil(total * STORE.deposit);
+  const balance = total - deposit;
+  document.getElementById('rTotal').textContent   = 'KSh ' + total.toLocaleString();
+  document.getElementById('rDeposit').textContent = 'KSh ' + deposit.toLocaleString();
+  document.getElementById('rBalance').textContent = 'KSh ' + balance.toLocaleString();
+  document.getElementById('calcResult').classList.add('show');
+}
+
+/* ── AI CHAT ── */
+const BIJOU_CONTEXT = `
+You are BIJOU's friendly payment assistant. BIJOU is a Kenyan beauty and fashion store.
+Key facts:
+- M-Pesa number: 0740 772 900 (SHAWN ADUNGO)
+- Payment: 75% deposit upfront, 25% on delivery
+- Delivery: Nairobi ~2 weeks, other counties ~3 weeks
+- Checkout: via WhatsApp
+- Refund policy: full refund or replacement if item out of stock
+- Payment method: M-Pesa Send Money only (more coming soon)
+Keep answers short, friendly and helpful. Use emojis occasionally.
+`;
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg   = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  appendMessage('user', msg);
+  showTyping(true);
+
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: BIJOU_CONTEXT,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "I'm not sure, but feel free to ask us directly on WhatsApp! 💬";
+    showTyping(false);
+    appendMessage('bot', reply);
+  } catch(e) {
+    showTyping(false);
+    appendMessage('bot', "Sorry, I'm having trouble connecting. Please ask us directly on WhatsApp! 💬");
+  } finally {
+    sendBtn.disabled = false;
+  }
+}
+
+function quickAsk(question) {
+  document.getElementById('chatInput').value = question;
+  sendChat();
+}
+
+function appendMessage(role, text) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `
+    ${role === 'bot' ? '<div class="chat-avatar">✨</div>' : ''}
+    <div class="chat-bubble">${text}</div>
+    ${role === 'user' ? '<div class="chat-avatar">👤</div>' : ''}
+  `;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function showTyping(show) {
+  let el = document.getElementById('typingIndicator');
+  if (show) {
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'typingIndicator';
+      el.className = 'chat-msg bot';
+      el.innerHTML = `
+        <div class="chat-avatar">✨</div>
+        <div class="chat-typing" style="display:flex">
+          <span></span><span></span><span></span>
+        </div>`;
+      document.getElementById('chatMessages').appendChild(el);
+    }
+    document.getElementById('chatMessages').scrollTop = 9999;
+  } else {
+    if (el) el.remove();
+  }
+}
+
+/* ── FAQ ── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── TOAST ── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart();
+  document.getElementById('calcInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') calcDeposit();
+  });
+});
+</script>
+</body>
+</html>

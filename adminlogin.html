@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIJOU — Admin Login</title>
+  <style>
+    :root {
+      --rose:#c9737a; --dark:#1a1014; --mid:#7a6068; --light:#fdf8f8;
+      --border:#eddfe0; --font-serif:'Georgia',serif; --font-sans:'Helvetica Neue',Arial,sans-serif;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:var(--font-sans); background:linear-gradient(135deg, #fdf8f8 0%, #eddfe0 100%);
+      color:var(--dark); min-height:100vh; display:flex; align-items:center; justify-content:center;
+    }
+    .login-container {
+      max-width:400px; width:90%; background:#fff; border-radius:12px;
+      box-shadow:0 8px 32px rgba(26,16,20,0.12); overflow:hidden;
+    }
+    .login-header {
+      background:var(--dark); color:#fff; padding:2rem; text-align:center;
+    }
+    .login-brand {
+      font-family:var(--font-serif); font-size:1.8rem; letter-spacing:.18em;
+      margin-bottom:.25rem;
+    }
+    .login-brand span { color:var(--rose); }
+    .login-subtitle {
+      font-size:.8rem; letter-spacing:.15em; text-transform:uppercase; color:#999; margin-top:.5rem;
+    }
+    .login-body {
+      padding:2rem;
+    }
+    .login-title {
+      font-size:1.1rem; font-weight:600; margin-bottom:.5rem; color:var(--dark);
+    }
+    .login-desc {
+      font-size:.85rem; color:var(--mid); margin-bottom:1.5rem; line-height:1.5;
+    }
+    .form-group {
+      margin-bottom:1.25rem;
+    }
+    .form-group label {
+      display:block; font-size:.75rem; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--mid); margin-bottom:.5rem;
+    }
+    .form-group input {
+      width:100%; padding:12px 14px; border:1.5px solid var(--border);
+      border-radius:8px; font-family:var(--font-sans); font-size:.95rem;
+      color:var(--dark); background:var(--light); transition:all .2s; outline:none;
+    }
+    .form-group input:focus {
+      border-color:var(--rose); background:#fff; box-shadow:0 0 0 3px rgba(201,115,122,0.1);
+    }
+    .login-btn {
+      width:100%; padding:12px; background:var(--rose); color:#fff;
+      border:none; border-radius:8px; font-size:.95rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+      transition:all .2s; margin-top:.5rem;
+    }
+    .login-btn:hover {
+      background:#b5626a; transform:translateY(-2px);
+      box-shadow:0 4px 16px rgba(201,115,122,0.3);
+    }
+    .login-btn:disabled {
+      background:#ccc; cursor:not-allowed; transform:none;
+    }
+    .login-error {
+      background:#fdeaea; color:#c62828; border-left:4px solid #c62828;
+      padding:12px 14px; border-radius:6px; font-size:.85rem; margin-bottom:1rem;
+      display:none; animation:slideDown .3s ease-out;
+    }
+    .login-error.show { display:block; }
+    @keyframes slideDown {
+      from { transform:translateY(-10px); opacity:0; }
+      to { transform:translateY(0); opacity:1; }
+    }
+    .login-footer {
+      border-top:1px solid var(--border); padding:1rem; text-align:center;
+      font-size:.75rem; color:var(--mid);
+    }
+    .login-loading { display:none; }
+    .login-loading.show { display:inline-block; }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-header">
+    <div class="login-brand">BIJ<span>◆</span>U</div>
+    <div class="login-subtitle">Admin Panel</div>
+  </div>
+  <div class="login-body">
+    <h1 class="login-title">Secure Access</h1>
+    <p class="login-desc">Enter your admin password to access the product management dashboard.</p>
+    
+    <div class="login-error" id="errorMsg"></div>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="password">Admin Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="••••••••" 
+          required 
+          autofocus
+        />
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        Login
+        <span class="login-loading" id="loading">⏳</span>
+      </button>
+    </form>
+  </div>
+  <div class="login-footer">
+    Forgot password? Contact the site administrator.
+  </div>
+</div>
+
+<script>
+  const API_URL = window.location.protocol === 'file:'
+    ? 'http://localhost:3000'
+    : window.location.origin;
+
+  // Check if already logged in
+  window.addEventListener('load', () => {
+    const token = sessionStorage.getItem('adminToken');
+    if (token) {
+      window.location.href = 'admin.html';
+    }
+  });
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('loginBtn');
+    const loading = document.getElementById('loading');
+    const errorMsg = document.getElementById('errorMsg');
+    
+    btn.disabled = true;
+    loading.classList.add('show');
+    errorMsg.classList.remove('show');
+
+    try {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        // Store token in sessionStorage (secure, expires when browser closes)
+        sessionStorage.setItem('adminToken', data.token);
+        window.location.href = 'admin.html';
+      } else {
+        errorMsg.textContent = '❌ ' + (data.message || 'Invalid password. Please try again.');
+        errorMsg.classList.add('show');
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    } catch (err) {
+      console.error(err);
+      errorMsg.textContent = '⚠️ Connection error. Make sure your server is running.';
+      errorMsg.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      loading.classList.remove('show');
+    }
+  }
+</script>
+
+</body>
+</html>

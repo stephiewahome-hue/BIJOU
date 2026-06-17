@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIJOU — Product Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="product-detail-stage">
+    <a href="index.html" style="display:inline-block;margin-bottom:1.5rem;color:#7a6068;">← Back to Store</a>
+    <div class="product-detail-card">
+      <div id="detailMedia">
+        <div class="detail-placeholder">✨</div>
+      </div>
+      <div class="detail-info">
+        <div>
+          <div class="detail-label" id="detailCategory"></div>
+          <h1 id="detailName">Loading...</h1>
+          <div id="detailPrice" style="font-size:1.5rem;font-weight:600;color:#1a1014;"></div>
+          <div id="detailOriginal" style="color:#7a6068;text-decoration:line-through;"></div>
+          <div id="detailStock" class="stock-status stock-in">Checking stock...</div>
+        </div>
+        <p id="detailDescription">Full product details will appear here once loaded.</p>
+        <div class="detail-actions">
+          <button id="detailAddBtn">Add to Cart</button>
+          <a id="detailBuyLink" class="product-detail-link" href="pay.html">Checkout</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_URL = window.location.protocol === 'file:'
+      ? 'http://localhost:3000'
+      : window.location.origin;
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(location.search);
+      return params.get(name);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.textContent = message;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '1.5rem';
+      toast.style.left = '50%';
+      toast.style.transform = 'translateX(-50%)';
+      toast.style.background = 'rgba(26,16,20,0.94)';
+      toast.style.color = '#fff';
+      toast.style.padding = '0.9rem 1.2rem';
+      toast.style.borderRadius = '999px';
+      toast.style.zIndex = '9999';
+      toast.style.boxShadow = '0 10px 22px rgba(0,0,0,0.2)';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    async function fetchProduct(id) {
+      try {
+        const res = await fetch(`${API_URL}/api/products/${encodeURIComponent(id)}`);
+        const data = await res.json();
+        if (!data.success) throw new Error(data.message || 'Product not found');
+        return data.product;
+      } catch (err) {
+        console.error(err);
+        return null;
+      }
+    }
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem('bijouCart') || '[]');
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem('bijouCart', JSON.stringify(cart));
+    }
+
+    function addToCart(product) {
+      const cart = getCart();
+      const existing = cart.find(i => i.id === product.id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        const img = (product.imageUrls && product.imageUrls[0]) || product.imageUrl || '';
+        cart.push({ id: product.id, name: product.name, price: product.price, imageUrl: img, qty: 1 });
+      }
+      saveCart(cart);
+      showToast(`"${product.name}" added to cart ✓`);
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const id = getQueryParam('id');
+      if (!id) {
+        document.getElementById('detailName').textContent = 'Product not found';
+        document.getElementById('detailDescription').textContent = 'No product ID was provided.';
+        document.getElementById('detailAddBtn').disabled = true;
+        return;
+      }
+
+      const product = await fetchProduct(id);
+      if (!product) {
+        document.getElementById('detailName').textContent = 'Product not found';
+        document.getElementById('detailDescription').textContent = 'This product could not be loaded. Please go back and try again.';
+        document.getElementById('detailAddBtn').disabled = true;
+        return;
+      }
+
+      const imageContainer = document.getElementById('detailMedia');
+      const imgs = (product.imageUrls && product.imageUrls.length) ? product.imageUrls : (product.imageUrl ? [product.imageUrl] : []);
+      if (imgs.length) {
+        const main = imgs[0];
+        const thumbs = imgs.map(u => `<img class="detail-thumb" src="${u}" data-src="${u}" onerror="this.style.display='none'" />`).join('');
+        imageContainer.innerHTML = `
+          <div>
+            <img id="detailMainImage" class="detail-image" src="${main}" alt="${product.name}" />
+            <div class="detail-thumbs">${thumbs}</div>
+          </div>
+        `;
+        // attach click handlers to thumbnails
+        setTimeout(() => {
+          document.querySelectorAll('.detail-thumb').forEach(t => t.addEventListener('click', e => {
+            const src = e.currentTarget.dataset.src;
+            const mainEl = document.getElementById('detailMainImage');
+            if (mainEl && src) mainEl.src = src;
+          }));
+        }, 0);
+      } else {
+        imageContainer.innerHTML = '<div class="detail-placeholder">✨</div>';
+      }
+
+      document.getElementById('detailCategory').textContent = product.category ? product.category.toUpperCase() : '';
+      document.getElementById('detailName').textContent = product.name;
+      document.getElementById('detailPrice').textContent = 'KSh ' + Number(product.price).toLocaleString();
+      document.getElementById('detailOriginal').textContent = product.original ? 'KSh ' + Number(product.original).toLocaleString() : '';
+      document.getElementById('detailDescription').textContent = product.description
+        ? product.description
+        : (product.badge
+          ? `Category: ${product.category || '—'} | Badge: ${product.badge}`
+          : `Category: ${product.category || '—'}`);
+
+      const stockEl = document.getElementById('detailStock');
+      if (product.inStock === false) {
+        stockEl.textContent = 'Out of stock';
+        stockEl.className = 'stock-status stock-out';
+        document.getElementById('detailAddBtn').disabled = true;
+      } else {
+        stockEl.textContent = 'In stock';
+        stockEl.className = 'stock-status stock-in';
+      }
+
+      document.getElementById('detailAddBtn').addEventListener('click', () => {
+        if (product.inStock === false) return;
+        addToCart(product);
+      });
+      document.getElementById('detailBuyLink').href = 'pay.html';
+    });
+  </script>
+</body>
+</html>
