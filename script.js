@@ -2,9 +2,7 @@
    BIJOU — script.js (Cart + Direct Checkout to pay.html)
 ========================================================= */
 
-const API_URL = window.location.protocol === 'file:'
-  ? 'http://localhost:3000'
-  : window.location.origin;
+const API_URL = 'https://bijou-kndx.onrender.com';
 
 /* ── CART STATE ─────────────────────────────────────────── */
 let cart = JSON.parse(localStorage.getItem('bijouCart') || '[]');
