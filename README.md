@@ -26,6 +26,7 @@ BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair a
 | File Uploads | Multer (memory storage → base64) |
 | Deployment — Frontend | Netlify |
 | Deployment — Backend | Render |
+| Ping-hits the API every 14 minutes | uptimerobot |
 | Payments | M-Pesa (via WhatsApp checkout) |
 | Auth | JWT + sessionStorage |
 
@@ -98,6 +99,7 @@ PORT=3000
 ADMIN_PASSWORD=your_strong_password_here
 JWT_SECRET=your_jwt_secret_here
 ```
+**For JWT_SECRET generate something rather than typing a phrase ```node -e "console.log(require( 'crypto').randomBytes(32).toString('hex'))"```
 
 ### Step 3 — Backend (server.js)
 The Express server handles:
