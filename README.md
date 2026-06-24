@@ -2,8 +2,6 @@
 
 > A full-stack e-commerce website built for a Kenyan beauty and fashion brand. Live at **[bijoustore.netlify.app](https://bijoustore.netlify.app)**
 
-![BIJOU Store](https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1200&q=80)
-
 ---
 
 ##  What is BIJOU?
@@ -263,7 +261,7 @@ const API_URL = 'https://your-app.onrender.com';
 **Stephanie Wahome**
 - 📧 [stephiewahome@gmail.com](mailto:stephiewahome@gmail.com)
 - 🐙 [github.com/stephiewahome-hue](https://github.com/stephiewahome-hue)
-- 📍 Kenya
+- 📍 Nairobi, Kenya
 - 💼 Available for commercial web development projects
 
 > Built as part of a web development course alongside real-world client work.
@@ -271,10 +269,10 @@ const API_URL = 'https://your-app.onrender.com';
 
 ---
 
-## 📄 License
+##  License
 
 MIT — feel free to learn from this code. If you use it commercially, a credit would be appreciated!
 
 ---
 
-*BIJOU — Beauty that speaks for itself* 💎
+*BIJOU — Beauty that speaks for itself* 
