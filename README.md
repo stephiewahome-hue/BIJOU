@@ -1,4 +1,4 @@
-# BIJOU 💎 — Beauty & Fashion E-Commerce Store
+# BIJOU  — Beauty & Fashion E-Commerce Store
 
 > A full-stack e-commerce website built for a Kenyan beauty and fashion brand. Live at **[bijoustore.netlify.app](https://bijoustore.netlify.app)**
 
@@ -6,19 +6,19 @@
 
 ---
 
-## 🌟 What is BIJOU?
+##  What is BIJOU?
 
 BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair and fashion items. This website was built from scratch as a real-world e-commerce project — no templates, no page builders, just pure code.
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
 🔗 **[bijoustore.netlify.app](https://bijoustore.netlify.app)**
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -33,7 +33,7 @@ BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair a
 
 ---
 
-## ✨ Features
+##  Features
 
 ### Customer Side
 - 🛍️ **Product grid** with category filter tabs (Skincare, Makeup, Hair, Fashion)
@@ -55,7 +55,7 @@ BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair a
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 BIJOU/
@@ -75,7 +75,7 @@ BIJOU/
 
 ---
 
-## 🏗️ How I Built This — Step by Step
+##  How I Built This — Step by Step
 
 ### Step 1 — Project Setup
 ```bash
@@ -228,7 +228,7 @@ const API_URL = 'https://your-app.onrender.com';
 
 ---
 
-## 🔐 Security Notes
+## Security Notes
 
 - ✅ `.env` is in `.gitignore` — never committed
 - ✅ Firebase service account key is never committed
@@ -238,7 +238,7 @@ const API_URL = 'https://your-app.onrender.com';
 
 ---
 
-## 🐛 Key Bugs Fixed Along the Way
+## Key Bugs Fixed Along the Way
 
 | Bug | Cause | Fix |
 |---|---|---|
@@ -250,7 +250,7 @@ const API_URL = 'https://your-app.onrender.com';
 
 ---
 
-## 📱 Screenshots
+## Screenshots
 
 | Home | Cart | Pay Page |
 |---|---|---|
@@ -258,7 +258,7 @@ const API_URL = 'https://your-app.onrender.com';
 
 ---
 
-## 👩‍💻 Built By
+##  Built By
 
 **Stephanie Wahome**
 - 📧 [stephiewahome@gmail.com](mailto:stephiewahome@gmail.com)
