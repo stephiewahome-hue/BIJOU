@@ -14,7 +14,7 @@ BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair a
 
 🔗 **[bijoustore.netlify.app](https://bijoustore.netlify.app)**
 ## Admin Panel
-🔗 **[bijoustore.netlify.app.admin.html](https://bijoustore.netlify.app.admin.html)** Admin panel
+🔗 **[bijoustore.netlify.app.admin-login.html](https://bijoustore.netlify.app.admin-login.html)** Admin panel
 
 
 ---
