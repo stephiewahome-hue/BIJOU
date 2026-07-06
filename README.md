@@ -255,9 +255,24 @@ const API_URL = 'https://your-app.onrender.com';
 
 ## Screenshots
 
-| Home | Cart | Pay Page |
-|---|---|---|
-| Product grid with search & filters | Slide-out cart drawer | M-Pesa instructions + deposit calculator |
+
+### Payment page
+![Payment page](payment-screenshot.png)
+
+### Product grid
+![Product grid](product-grid.png)
+
+### Search bar
+![Search bar](search-bar-screenshot.png)
+
+### Details Page
+![Details page](details-page.png)
+
+### Deposit Calculator
+![Deposit calculator](deposit-calculator.png)
+
+### Cart page
+![Cart page](cart-page.png)
 
 ---
 
