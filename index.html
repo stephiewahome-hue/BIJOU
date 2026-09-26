@@ -7,182 +7,241 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── SEARCH BAR ── */
+    :root {
+      --dark: #1d1b1a;
+      --rose: #c27a89;
+      --rose-soft: #f4e6e9;
+      --rose-deep: #9d5d68;
+      --ivory: #f9f5f1;
+      --bone: #f3ece7;
+      --sand: #e9d9d0;
+      --text: #312b2a;
+      --muted: #6f625f;
+      --line: #eadfd7;
+      --shadow: 0 12px 30px rgba(43, 30, 30, 0.08);
+    }
+
+    body {
+      background: linear-gradient(180deg, #fffdfb 0%, #f9f5f1 100%);
+      color: var(--text);
+    }
+
+    .nav-logo {
+      letter-spacing: 0.12em;
+      font-size: 1.6rem;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      letter-spacing: 0.16em;
+    }
+
     .search-bar-wrap {
-      background: var(--dark);
-      padding: 0.75rem 1.25rem;
+      background: linear-gradient(180deg, #efe2dc 0%, #f9f5f1 100%);
+      padding: 0.85rem 1.25rem 1rem;
       position: sticky;
       top: 64px;
       z-index: 90;
+      border-bottom: 1px solid rgba(193, 155, 140, 0.2);
     }
+
     .search-bar {
       display: flex;
       align-items: center;
-      background: #fff;
-      border-radius: 24px;
-      padding: 0.5rem 1rem;
-      gap: 0.5rem;
-      max-width: 600px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(194,122,137,0.18);
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      gap: 0.7rem;
+      max-width: 640px;
       margin: 0 auto;
-    }
-    .search-bar input {
-      border: none;
-      outline: none;
-      flex: 1;
-      font-size: 0.9rem;
-      font-family: var(--font-sans);
-      background: transparent;
-      color: var(--dark);
-    }
-    .search-go-btn {
-      background: var(--rose);
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      color: white;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .search-clear {
-      background: none;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      color: var(--mid);
-      display: none;
-      padding: 0 4px;
-      line-height: 1;
-    }
-    .search-clear.visible { display: block; }
-    .search-result-count {
-      text-align: center;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.6);
-      margin-top: 0.35rem;
-      min-height: 1rem;
+      box-shadow: 0 8px 20px rgba(66, 45, 44, 0.05);
     }
 
-    /* ── COMPACT PRODUCT GRID ── */
+    .search-bar input {
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .search-go-btn {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+      box-shadow: 0 8px 18px rgba(194,122,137,0.22);
+    }
+
+    .search-result-count {
+      color: rgba(49,43,42,0.7);
+    }
+
     .product-grid {
       display: grid !important;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
-      gap: 0.75rem !important;
-    }
-    .product-card {
-      border-radius: 10px !important;
-      overflow: hidden;
-      border: 1px solid var(--border, #eddfe0) !important;
-      background: #fff;
-      box-shadow: 0 1px 6px rgba(180,100,110,.07) !important;
-      transition: box-shadow 0.2s;
-    }
-    .product-card:hover { box-shadow: 0 3px 14px rgba(180,100,110,.15) !important; }
-    .product-image {
-      height: 150px !important;
-      position: relative;
-      overflow: hidden;
-      background: var(--rose-lt, #f7eced);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-    }
-    .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .product-badge {
-      position: absolute;
-      top: 6px; left: 6px;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 20px;
-    }
-    .product-badge.new     { background: var(--rose, #c9737a); color: #fff; }
-    .product-badge.sale    { background: #e05c5c; color: #fff; }
-    .product-badge.hot     { background: #ff8c42; color: #fff; }
-    .product-badge.limited { background: var(--dark, #1a1014); color: #fff; }
-    .product-info { padding: 0.6rem 0.65rem 0.3rem; }
-    .product-name {
-      font-size: 0.78rem !important;
-      font-weight: 600;
-      line-height: 1.3;
-      margin-bottom: 0.25rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .product-price { font-size: 0.82rem !important; font-weight: 700; color: var(--rose, #c9737a); }
-    .product-actions {
-      padding: 0.4rem 0.65rem 0.65rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+      gap: 1rem !important;
     }
 
-    /* Unified button styling for compact grid */
+    .product-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line) !important;
+      border-radius: 18px !important;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(43, 30, 30, 0.12);
+      border-color: rgba(194,122,137,0.35) !important;
+    }
+
+    .product-image {
+      height: 180px !important;
+      background: linear-gradient(135deg, #f9eeee 0%, #f2e3dc 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-badge {
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .product-badge.new     { background: var(--rose); }
+    .product-badge.sale    { background: #d76d77; }
+    .product-badge.hot     { background: #f2a865; }
+    .product-badge.limited { background: var(--dark); }
+
+    .product-info {
+      padding: 0.8rem 0.8rem 0.3rem;
+    }
+
+    .product-name {
+      font-size: 0.82rem !important;
+      color: var(--text);
+      line-height: 1.4;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-price {
+      font-size: 0.88rem !important;
+      font-weight: 700;
+      color: var(--rose-deep);
+    }
+
+    .product-actions {
+      padding: 0.45rem 0.75rem 0.8rem;
+      gap: 0.45rem;
+    }
+
     .product-detail-link,
     .add-to-cart-btn {
-      font-size: 0.7rem;
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 0.68rem;
       font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      padding: 7px 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      text-align: center;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
       display: block;
       width: 100%;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      border: 1px solid transparent;
     }
 
     .product-detail-link {
-      background: var(--rose, #c9737a);
-      color: #fff;
-      border: 1px solid var(--rose, #c9737a);
+      background: #fff;
+      border-color: rgba(194,122,137,0.35);
+      color: var(--rose-deep);
     }
+
     .product-detail-link:hover {
-      background: #b5626a;
-      border-color: #b5626a;
+      background: var(--rose-soft);
+      border-color: var(--rose);
+      color: var(--rose-deep);
+      transform: translateY(-1px);
     }
 
     .add-to-cart-btn {
-      background: var(--charcoal, #1a1014);
+      background: linear-gradient(135deg, var(--dark) 0%, #2a2322 100%);
       color: #fff;
-      border: 1px solid var(--charcoal, #1a1014);
+      box-shadow: 0 10px 18px rgba(29,27,26,0.12);
     }
+
     .add-to-cart-btn:hover {
-      background: var(--rose, #c9737a);
-      border-color: var(--rose, #c9737a);
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+      border-color: var(--rose);
+      transform: translateY(-1px);
     }
+
     .add-to-cart-btn.disabled,
     .add-to-cart-btn:disabled {
-      background: #ccc;
-      border-color: #ccc;
+      background: #d9d1cd;
+      border-color: #d9d1cd;
+      box-shadow: none;
       cursor: not-allowed;
-      opacity: 0.6;
+      opacity: 0.8;
     }
 
-    .no-results {
-      grid-column: 1/-1;
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--mid, #7a6068);
+    .filter-tabs {
+      gap: 0.7rem;
+      padding-bottom: 2.2rem;
     }
-    .no-results .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    .filter-tab {
+      border-radius: 999px;
+      border: 1px solid rgba(194,122,137,0.2);
+      background: rgba(255,255,255,0.6);
+      color: var(--muted);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+      box-shadow: 0 10px 20px rgba(29,27,26,0.12);
+    }
+
+    .section-tag {
+      color: var(--rose-deep);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--dark) 0%, #2a2322 100%);
+      border-radius: 999px;
+      box-shadow: 0 12px 22px rgba(29,27,26,0.12);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border-bottom: 1px solid rgba(194,122,137,0.4);
+    }
+
+    .hero-badge {
+      border-radius: 14px;
+      box-shadow: 0 18px 32px rgba(29,27,26,0.14);
+    }
 
     @media (max-width: 480px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      .product-image { height: 130px !important; }
-      .search-bar-wrap { top: 56px; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .product-image { height: 150px !important; }
     }
   </style>
 </head>
