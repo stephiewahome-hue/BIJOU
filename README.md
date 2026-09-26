@@ -38,22 +38,22 @@ BIJOU is a Kenyan beauty and fashion brand selling skincare, makeup, wigs/hair a
 ##  Features
 
 ### Customer Side
-- 🛍️ **Product grid** with category filter tabs (Skincare, Makeup, Hair, Fashion)
-- 🔍 **Search bar** with real-time filtering
-- 🛒 **Slide-out cart drawer** — add, remove, change quantities
-- 💳 **WhatsApp checkout** — cart sends a pre-written order message
-- 📱 **Pay page** — M-Pesa instructions, deposit calculator, AI assistant
-- 📦 **Product detail pages**
-- 🌍 **Fully mobile responsive**
-- 🇰🇪 **Afrocentric imagery** — Black/African models throughout
+- **Product grid** with category filter tabs (Skincare, Makeup, Hair, Fashion)
+- **Search bar** with real-time filtering
+-  **Slide-out cart drawer** — add, remove, change quantities
+-  **WhatsApp checkout** — cart sends a pre-written order message
+-  **Pay page** — M-Pesa instructions, deposit calculator, AI assistant
+- **Product detail pages**
+- **Fully mobile responsive**
+- **Afrocentric imagery** — Black/African models throughout
 
 ### Admin Side
-- 🔐 **Password-protected admin panel** (`/admin.html`)
-- ➕ **Add products** — name, category, price, badge, description, images
-- ✏️ **Edit products** inline
-- 🗑️ **Delete products**
-- 📸 **Multiple image upload** (file upload or URL paste)
-- 🔦 **Filter by category**
+-  **Password-protected admin panel** (`/admin.html`)
+-  **Add products** — name, category, price, badge, description, images
+-  **Edit products** inline
+- **Delete products**
+- **Multiple image upload** (file upload or URL paste)
+- **Filter by category**
 
 ---
 
@@ -233,11 +233,11 @@ const API_URL = 'https://your-app.onrender.com';
 
 ## Security Notes
 
-- ✅ `.env` is in `.gitignore` — never committed
-- ✅ Firebase service account key is never committed
-- ✅ Admin routes protected by JWT middleware
-- ✅ Tokens stored in `sessionStorage` (expire on browser close)
-- ✅ Admin password stored as environment variable only
+-  `.env` is in `.gitignore` — never committed
+-  Firebase service account key is never committed
+-  Admin routes protected by JWT middleware
+- Tokens stored in `sessionStorage` (expire on browser close)
+- Admin password stored as environment variable only
 
 ---
 
@@ -280,9 +280,9 @@ const API_URL = 'https://your-app.onrender.com';
 
 **Stephanie Wahome**
 - 📧 [stephiewahome@gmail.com](mailto:stephiewahome@gmail.com)
-- 🐙 [github.com/stephiewahome-hue](https://github.com/stephiewahome-hue)
+-  [github.com/stephiewahome-hue](https://github.com/stephiewahome-hue)
 - 📍 Nairobi, Kenya
-- 💼 Available for commercial web development projects
+- Available for commercial web development projects
 
 > Built as part of a web development course alongside real-world client work.
 > Stack: HTML · CSS · JavaScript · Node.js · Firebase · Netlify · Render
